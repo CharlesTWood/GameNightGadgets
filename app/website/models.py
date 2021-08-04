@@ -1,9 +1,10 @@
-from website import login_manager
+from website import db
+from sqlalchemy import Table, ForeignKey, Column
+from sqlalchemy.orm import relationship
 from flask_login import UserMixin
+from sqlalchemy.ext.declarative import declarative_base
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.querry.get(int(user_id))
+Base = declarative_base()
 
 association_table = Table('association', Base.metadata,
     Column('user_id', ForeignKey('User_Accounts.user_id')),
@@ -19,11 +20,9 @@ class User(db.model, UserMixin):
     subscriber = db.Column(db.Boolean, default=False)
     purchases = relationship("Product", secondary=association_table)
 
-    def get_id(self):
-        return(self.user_id)
-
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
+
 
 class Product(db.model):
     __tablename__ = 'Products'
@@ -31,10 +30,3 @@ class Product(db.model):
     product_name = db.Column(db.String(20), unique=True, nullable=False)
     product_description = db.Column(db.String, unique=True, nullable=False)
     product_price = db.Column(db.Integer, required=True)
-    image_file
-
-    def get_id(self):
-        return(self.product_id)
-
-    def __repr__(self):
-        return f"Product('{self.product_name}', '{self.email}')"

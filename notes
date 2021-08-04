@@ -1,0 +1,8 @@
+To start the server 'python run.py'
+
+Create DB
+from website import db
+db.create_all()
+
+virtualenv pydev
+pydev\Scripts\activate
