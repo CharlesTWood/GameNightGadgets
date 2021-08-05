@@ -1,7 +1,7 @@
 import os
 import re
 from website import app, db
-from website.forms import Login_form
+from website.forms import Loginform
 from flask import url_for, render_template, redirect
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -14,7 +14,7 @@ def home():
     url_for('static', filename='site_images/dragon3.jpg'),
     url_for('static', filename='site_images/banner_black.jpg'),
     url_for('static', filename='site_images/ship.png'),
-    url_for('static', filename='site_images/click.png') ,
+    url_for('static', filename='site_images/click.png'),
     url_for('static', filename='site_images/play.png')]
     return render_template('home.html', images=image_files)
 
@@ -24,7 +24,11 @@ def about():
 
 @app.route('/login')
 def login():
-
+    form = Loginform()
     if current_user.is_authenticated:
         return redirect(url_for('home'))
     return render_template('login.html', form=form)
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    return render_template('register.html')
