@@ -1,3 +1,4 @@
+import os
 from website import db, login_manager
 from sqlalchemy import Table, ForeignKey, Column
 from sqlalchemy.orm import relationship
@@ -18,7 +19,9 @@ association_table = Table('association', Base.metadata,
 class User(db.Model, UserMixin):
     __tablename__ = 'User_Accounts'
     user_id = db.Column(db.Integer, primary_key=True)
+    children = relationship("Product", secondary=association_table)
     username = db.Column(db.String(20), unique=True, nullable=False)
+    mailing_address = db.Column(db.String, nullable=True)
     email = db.Column(db.String(40), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
     subscriber = db.Column(db.Boolean, default=False)
@@ -30,7 +33,7 @@ class User(db.Model, UserMixin):
 
 class Product(db.Model):
     __tablename__ = 'Products'
-    product_id = db.Column(db.Integer, primary_key=True)
+    product_id = db.Column(db.Integer, primary_key=True, nullable=True)
     product_name = db.Column(db.String(20), unique=True, nullable=False)
     product_description = db.Column(db.String, unique=True, nullable=False)
     product_price = db.Column(db.Integer, nullable=False)

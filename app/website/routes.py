@@ -1,7 +1,10 @@
 import os
 import re
-from website import app, db
-from website.forms import Loginform
+
+from flask.helpers import flash
+from website import app, db, bcrypt
+from website.forms import Loginform, Registerform
+from website.models import User
 from flask import url_for, render_template, redirect
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -18,17 +21,33 @@ def home():
     url_for('static', filename='site_images/play.png')]
     return render_template('home.html', images=image_files)
 
-@app.route("/about")
+@app.route("/about", methods=['GET', 'POST'])
 def about():
     return render_template('about.html')
 
-@app.route('/login')
-def login():
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    form = Registerform()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+        flash('Your account has been created!', 'success')
+        return redirect(url_for('login'))
+    return render_template('register.html', form=form)
+
+@app.context_processor
+def login_form():
     form = Loginform()
     if current_user.is_authenticated:
         return redirect(url_for('home'))
-    return render_template('login.html', form=form)
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    return render_template('register.html')
+    if form.validate_on_submit():
+        password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user = User(email=form.email.data, password=password)
+        db.session.add(user)
+        db.session.commit()
+        flash(f'{user} logged in', 'success')
+    return dict(login_form=form)

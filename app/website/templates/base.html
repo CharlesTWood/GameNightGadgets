@@ -83,12 +83,30 @@
             <div class="d-flex flex-column text-center">
               <form>
                 <div class="form-group">
-                  <input type="email" class="form-control" id="email1"placeholder="Your email address...">
+                  {% if login_form.email.errors %}
+                      {{ login_form.email(class="form-control form-control is-invalid") }}
+                      <div class="invalid-feedback">
+                          {% for error in login_form.email.errors %}
+                              <span>{{ error }}</span>
+                          {% endfor %}
+                      </div>
+                  {% else %}
+                      {{ login_form.email(class="form-control form-control-lg") }}
+                  {% endif %}
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control" id="password1" placeholder="Your password...">
+                  {% if login_form.password.errors %}
+                      {{ login_form.password(class="form-control form-control is-invalid") }}
+                      <div class="invalid-feedback">
+                          {% for error in login_form.password.errors %}
+                              <span>{{ error }}</span>
+                          {% endfor %}
+                      </div>
+                  {% else %}
+                      {{ login_form.password(class="form-control form-control-lg") }}
+                  {% endif %}
                 </div>
-                <button type="button" class="btn btn-info btn-block btn-round">Login</button>
+                {{ login_form.submit(class="btn btn-outline-info") }}                       
               </form>
               
               <div class="text-center text-muted delimiter">or sign in with google or facebook</div>
@@ -100,12 +118,13 @@
                   <i class="fab fa-facebook"></i>
                 </button>
               </div>
+              <div class="modal-footer justify-content-center">
+                <div class="signup-section">Not a member yet? <a href="{{ url_for('register') }}" class="text-info"> Sign Up</a>.</div>
+              </div>
             </div>
           </div>
         </div>
-          <div class="modal-footer justify-content-center">
-            <div class="signup-section">Not a member yet? <a href="{{ url_for('register') }}" class="text-info"> Sign Up</a>.</div>
-          </div>
+         
       </div>
     </div>
     
