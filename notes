@@ -6,3 +6,6 @@ db.create_all()
 
 virtualenv pydev
 pydev\Scripts\activate
+
+print to console using stout
+print('Hello world!', file=sys.stderr)

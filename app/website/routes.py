@@ -32,6 +32,7 @@ def register():
     form = Registerform()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        flash(form.username.data)
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
@@ -41,13 +42,23 @@ def register():
 
 @app.context_processor
 def login_form():
-    form = Loginform()
     if current_user.is_authenticated:
         return redirect(url_for('home'))
-    if form.validate_on_submit():
-        password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(email=form.email.data, password=password)
-        db.session.add(user)
-        db.session.commit()
-        flash(f'{user} logged in', 'success')
-    return dict(login_form=form)
+    nav_login_form = Loginform()
+    if nav_login_form.validate_on_submit():
+        user = User.query.filter_by(email=nav_login_form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password, nav_login_form.password.data):
+            login_user(user)
+    return dict(login_form=nav_login_form)
+
+# def login_form():
+#     nav_login_form = Loginform()
+#     if current_user.is_authenticated:
+#         return redirect(url_for('home'))
+#     if nav_login_form.validate_on_submit():
+#         password = bcrypt.generate_password_hash(nav_login_form.password.data).decode('utf-8')
+#         user = User(email=nav_login_form.email.data, password=password)
+#         db.session.add(user)
+#         db.session.commit()
+#         flash(f'{user} logged in', 'success')
+#     return dict(login_form=nav_login_form)
