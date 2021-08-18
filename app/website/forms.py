@@ -9,14 +9,11 @@ def Password_complexity(form, field):
     special_chars = '!@#$%^&*()_-+=[]|\/?>.<,|'
     valid = False
     for char in field.data:
-        print(char, file=sys.stderr)
-        for special in special_chars:
-            print('printing special: ', special, file=sys.stderr)
-            if char == special:
-                valid = True 
-    if valid == True:
-        print('password is valid', file=sys.stderr)
-    else: ValidationError('password must contain at lease one special character')
+        if valid == False:
+            for special in special_chars:
+                if char == special: valid = True  
+    if valid == False:
+        raise ValidationError('password must contain at lease one special character')
 
 class Loginform(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email(), Length(min=6, max=80)])
@@ -27,9 +24,9 @@ class Loginform(FlaskForm):
 
 class Registerform(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(max=20)])
-    first_name = StringField('First Name', validators=[DataRequired(), Length(max=20)])
-    last_name = StringField('Last Name', validators=[DataRequired(), Length(max=20)])
-    mailing_address = StringField('Mailing Address')
+    #first_name = StringField('First Name', validators=[DataRequired(), Length(max=20)])
+    #last_name = StringField('Last Name', validators=[DataRequired(), Length(max=20)])
+    #mailing_address = StringField('Mailing Address')
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=8, max=20), Password_complexity])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])

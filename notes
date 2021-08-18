@@ -4,6 +4,11 @@ Create DB
 from website import db
 db.create_all()
 
+DB commands
+migrate DB: flask db migrate -m "message"
+
+upgrade: flask db upgrade
+
 virtualenv pydev
 pydev\Scripts\activate
 

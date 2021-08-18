@@ -1,6 +1,4 @@
-import os
-import re
-
+import sys
 from flask.helpers import flash
 from website import app, db, bcrypt
 from website.forms import Loginform, Registerform
@@ -9,7 +7,7 @@ from flask import url_for, render_template, redirect
 from flask_login import login_user, current_user, logout_user, login_required
 
 
-@app.route("/home")
+@app.route("/home", methods=['GET', 'POST'])
 @app.route("/")
 def home():
     image_files = [url_for('static', filename='site_images/dragon1.jpg'),
@@ -27,38 +25,31 @@ def about():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    form = Registerform()
     if current_user.is_authenticated:
         return redirect(url_for('home'))
-    form = Registerform()
     if form.validate_on_submit():
+        print('form is valid', file=sys.stderr)
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         flash(form.username.data)
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
         flash('Your account has been created!', 'success')
-        return redirect(url_for('login'))
+        return redirect(url_for('home'))
     return render_template('register.html', form=form)
 
 @app.context_processor
 def login_form():
+    nav_login_form = Loginform()
     if current_user.is_authenticated:
         return redirect(url_for('home'))
-    nav_login_form = Loginform()
     if nav_login_form.validate_on_submit():
         user = User.query.filter_by(email=nav_login_form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, nav_login_form.password.data):
             login_user(user)
+        else:
+            flash('Login Unsuccessful. Please check email and password', 'danger')
     return dict(login_form=nav_login_form)
 
-# def login_form():
-#     nav_login_form = Loginform()
-#     if current_user.is_authenticated:
-#         return redirect(url_for('home'))
-#     if nav_login_form.validate_on_submit():
-#         password = bcrypt.generate_password_hash(nav_login_form.password.data).decode('utf-8')
-#         user = User(email=nav_login_form.email.data, password=password)
-#         db.session.add(user)
-#         db.session.commit()
-#         flash(f'{user} logged in', 'success')
-#     return dict(login_form=nav_login_form)
+
