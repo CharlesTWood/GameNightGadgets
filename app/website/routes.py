@@ -29,7 +29,6 @@ def register():
     if current_user.is_authenticated:
         return redirect(url_for('home'))
     if form.validate_on_submit():
-        print('form is valid', file=sys.stderr)
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         flash(form.username.data)
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
@@ -39,17 +38,40 @@ def register():
         return redirect(url_for('home'))
     return render_template('register.html', form=form)
 
-@app.context_processor
-def login_form():
-    nav_login_form = Loginform()
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = Loginform()
     if current_user.is_authenticated:
         return redirect(url_for('home'))
-    if nav_login_form.validate_on_submit():
-        user = User.query.filter_by(email=nav_login_form.email.data).first()
-        if user and bcrypt.check_password_hash(user.password, nav_login_form.password.data):
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user)
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
-    return dict(login_form=nav_login_form)
+    return render_template('login.html', form=form)
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
+    
+@app.context_processor
+def login_form():
+    nav_login_form = Loginform()
+    if nav_login_form.validate_on_submit():
+        print("valid", file=sys.stderr)
+        user = User.query.filter_by(email=nav_login_form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password, nav_login_form.password.data):
+            print("working", file=sys.stderr)
+            login_user(user)
+        else:
+            flash('Login Unsuccessful. Please check email and password', 'danger')
+    else: 
+        print('not valid', nav_login_form, file=sys.stderr)
+        print(nav_login_form.email.data, file=sys.stderr)
+        print(nav_login_form.password.data, file=sys.stderr)
+
+    return dict(navbar_login_form=nav_login_form)
 
 

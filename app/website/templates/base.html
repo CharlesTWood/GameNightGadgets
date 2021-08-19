@@ -59,9 +59,21 @@
             </ul>
             <ul class="navbar-nav me-auto">
               <li class="nav-item">
-                <button type="button" class="btn btn-light btn-round" data-toggle="modal" data-target="#loginModal">
-                  Login
-                </button>                
+                {% if current_user.is_authenticated %}
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      {{ current_user.username }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="#">Account</a>
+                      <a class="dropdown-item" href="#">Another</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                  </li>
+                {% else %}
+                  <button type="button" class="btn btn-light btn-round" data-toggle="modal" data-target="#loginModal"> Login</button>                
+                {% endif %}
               </li>
             </ul>
           </div>
@@ -83,30 +95,30 @@
             <div class="d-flex flex-column text-center">
               <form>
                 <div class="form-group">
-                  {% if login_form.email.errors %}
-                      {{ login_form.email(class="form-control form-control is-invalid") }}
+                  {% if navbar_login_form.email.errors %}
+                      {{ navbar_login_form.email(class="form-control form-control is-invalid") }}
                       <div class="invalid-feedback">
-                          {% for error in login_form.email.errors %}
+                          {% for error in navbar_login_form.email.errors %}
                               <span>{{ error }}</span>
                           {% endfor %}
                       </div>
                   {% else %}
-                      {{ login_form.email(class="form-control form-control-lg") }}
+                      {{ navbar_login_form.email(class="form-control form-control-lg") }}
                   {% endif %}
                 </div>
                 <div class="form-group">
-                  {% if login_form.password.errors %}
-                      {{ login_form.password(class="form-control form-control is-invalid") }}
+                  {% if navbar_login_form.password.errors %}
+                    {{ navbar_login_form.password(class="form-control form-control is-invalid") }}
                       <div class="invalid-feedback">
-                          {% for error in login_form.password.errors %}
+                          {% for error in navbar_login_form.password.errors %}
                               <span>{{ error }}</span>
                           {% endfor %}
                       </div>
                   {% else %}
-                      {{ login_form.password(class="form-control form-control-lg") }}
+                      {{ navbar_login_form.password(class="form-control form-control-lg") }}
                   {% endif %}
                 </div>
-                {{ login_form.submit(class="btn btn-outline-info") }}                       
+                {{ navbar_login_form.submit(class="btn btn-outline-info") }}                       
               </form>
               
               <div class="text-center text-muted delimiter">or sign in with google or facebook</div>
