@@ -31,6 +31,15 @@
                         {{ form.password(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class="flashes">
+                        {% for message in messages %}
+                        <div class="message_flash">{{ message }}</div>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% endwith %}
                 
             </fieldset>
             <div class="form-group">

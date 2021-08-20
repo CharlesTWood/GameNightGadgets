@@ -93,7 +93,7 @@
               <h4>Login</h4>
             </div>
             <div class="d-flex flex-column text-center">
-              <form>
+              <form method="POST" action="{{ url_for('login')}}">
                 <div class="form-group">
                   {% if navbar_login_form.email.errors %}
                       {{ navbar_login_form.email(class="form-control form-control is-invalid") }}
@@ -118,9 +118,8 @@
                       {{ navbar_login_form.password(class="form-control form-control-lg") }}
                   {% endif %}
                 </div>
-                {{ navbar_login_form.submit(class="btn btn-outline-info") }}                       
+                {{ navbar_login_form.submit(class="btn btn-outline-info") }}                
               </form>
-              
               <div class="text-center text-muted delimiter">or sign in with google or facebook</div>
               <div class="d-flex justify-content-center social-buttons">
                 <button type="button" class="btn btn-secondary btn-round" data-toggle="tooltip" data-placement="top" title="google">

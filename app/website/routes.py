@@ -1,14 +1,18 @@
 import sys
-from flask.helpers import flash
 from website import app, db, bcrypt
 from website.forms import Loginform, Registerform
 from website.models import User
-from flask import url_for, render_template, redirect
+from flask import url_for, render_template, redirect, request, flash
 from flask_login import login_user, current_user, logout_user, login_required
 
 
+@app.context_processor
+def login_form():
+    nav_login_form = Loginform()
+    return dict(navbar_login_form=nav_login_form)
+
 @app.route("/home", methods=['GET', 'POST'])
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def home():
     image_files = [url_for('static', filename='site_images/dragon1.jpg'),
     url_for('static', filename='site_images/dragon2.jpg'),
@@ -40,6 +44,16 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        request_form = request.form
+        if request_form:
+            user = User.query.filter_by(email=request_form['email']).first()
+            if user and bcrypt.check_password_hash(user.password, request_form['password']):
+                login_user(user)
+                return redirect(url_for('home'))
+            else:
+                pass#flash('Login Unsuccessful. Please check email and password', 'danger')
+
     form = Loginform()
     if current_user.is_authenticated:
         return redirect(url_for('home'))
@@ -47,6 +61,7 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user)
+            return redirect(url_for('home'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', form=form)
@@ -55,23 +70,3 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('home'))
-    
-@app.context_processor
-def login_form():
-    nav_login_form = Loginform()
-    if nav_login_form.validate_on_submit():
-        print("valid", file=sys.stderr)
-        user = User.query.filter_by(email=nav_login_form.email.data).first()
-        if user and bcrypt.check_password_hash(user.password, nav_login_form.password.data):
-            print("working", file=sys.stderr)
-            login_user(user)
-        else:
-            flash('Login Unsuccessful. Please check email and password', 'danger')
-    else: 
-        print('not valid', nav_login_form, file=sys.stderr)
-        print(nav_login_form.email.data, file=sys.stderr)
-        print(nav_login_form.password.data, file=sys.stderr)
-
-    return dict(navbar_login_form=nav_login_form)
-
-
