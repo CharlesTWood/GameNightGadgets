@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!--jQuery link-->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -65,7 +68,7 @@
                       {{ current_user.username }}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="#">Account</a>
+                      <a class="dropdown-item" href="{{ url_for('account')}}">Account</a>
                       <a class="dropdown-item" href="#">Another</a>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>

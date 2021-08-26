@@ -10,8 +10,6 @@ def load_user(id):
 
 Base = declarative_base()
 
-
-
 class User(db.Model, UserMixin):
     __tablename__ = 'User_Accounts'
     id = db.Column(db.Integer, primary_key=True)
