@@ -1,55 +1,53 @@
-{% extends "base.html" %}
-{% block content %}
-<div class="container">
-    <legend class="border-bottom ">Account Details</legend>
-    <div class="content_section">
-        <form method="POST" action="" enctype="multipart/form-data">
-            {{ form.hidden_tag() }}
-            <fieldset class="form-group">
-                <div class="form-group">
-                    {{ form.username.label(class="form-control-label") }}
-                    {% if form.username.errors %}
-                        {{ form.username(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.username.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.username(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.email.label(class="form-control-label") }}
-                    {% if form.email.errors %}
-                        {{ form.email(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.email.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.email(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.email.label(class="form-control-label") }}
-                    {% if form.email.errors %}
-                        {{ form.email(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.email.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.email(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-            </fieldset>
+{% extends "settings.html" %}
+{% block menu_content %}
+<legend class="border-bottom ">Account Details</legend>
+<div class="content_section">
+    <form method="POST" action="" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
             <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}
+                {{ form.username.label(class="form-control-label") }}
+                {% if form.username.errors %}
+                    {{ form.username(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.username.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.username(class="form-control form-control-lg") }}
+                {% endif %}
             </div>
-        </form>
-    </div>
+            <div class="form-group">
+                {{ form.email.label(class="form-control-label") }}
+                {% if form.email.errors %}
+                    {{ form.email(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.email(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.email.label(class="form-control-label") }}
+                {% if form.email.errors %}
+                    {{ form.email(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.email(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
 </div>
-{% endblock content %}
+{% endblock menu_content %}

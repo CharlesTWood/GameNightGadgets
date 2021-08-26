@@ -30,8 +30,8 @@ def home():
 def about():
     return render_template('about.html')
 
-@app.route("/orders", methods=['GET', 'POST'])
-def orders():
+@app.route("/purchases", methods=['GET', 'POST'])
+def purchases():
     return render_template('about.html')
 
 @app.route("/cart", methods=['GET', 'POST'])
