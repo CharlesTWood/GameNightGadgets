@@ -58,7 +58,7 @@
 }
 
 body{
-  background-color: rgb(252, 250, 250);
+  background-color: #fffcf0;
 }
 
 h1{
@@ -116,13 +116,13 @@ h2{
 }
 
 /*
-    DEMO STYLE
+    NAV STYLE
 */
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 body {
     font-family: 'Poppins', sans-serif;
-    background: #fafafa;
+    background: #fffcf0;
 }
 
 p {
@@ -176,7 +176,7 @@ a:focus {
 #sidebar {
     min-width: 250px;
     max-width: 250px;
-    background: #664200;
+    background: #6d4201;
     color: #fff;
     transition: all 0.1s;
 }
@@ -207,14 +207,14 @@ a:focus {
 }
 
 #sidebar ul li a:hover {
-    color: #4d4d4d;
-    background: #fff;
+    color: #979797;
+    background: #fff5d5;
 }
 
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
     color: #fff;
-    background: #724712;
+    background: #daa463;
 }
 
 a[data-toggle="collapse"] {
@@ -232,7 +232,7 @@ a[data-toggle="collapse"] {
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #6dbbce;
+    background: #ffffff;
     color: #000000
 }
 

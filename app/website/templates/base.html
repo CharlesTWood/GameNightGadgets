@@ -29,7 +29,8 @@
 <body>
     <nav class="navbar navbar-expand-sm navbar-custom">
         <div class="container-fluid">      
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+          aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -71,7 +72,7 @@
                       {{ current_user.username }}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="{{ url_for('account')}}">Account</a>
+                      <a class="dropdown-item" href="{{ url_for('account_details')}}">Account</a>
                       <a class="dropdown-item" href="#">Another</a>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>

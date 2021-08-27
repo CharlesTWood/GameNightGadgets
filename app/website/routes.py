@@ -38,11 +38,6 @@ def purchases():
 def cart():
     return render_template('about.html')
 
-@app.route("/account", methods=['GET', 'POST'])
-@login_required
-def account():
-    return render_template('account_menu.html')
-
 #URL for when a user wants to see their personal information
 @app.route("/account/details", methods=['GET', 'POST'])
 @login_required
