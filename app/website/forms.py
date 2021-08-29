@@ -35,9 +35,8 @@ class Registerform(FlaskForm):
 
 class Accountform(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(max=20)])
-    #first_name = StringField('First Name', validators=[DataRequired(), Length(max=20)])
-    #last_name = StringField('Last Name', validators=[DataRequired(), Length(max=20)])
-    #mailing_address = StringField('Mailing Address')
+    first_name = StringField('First Name', validators=[DataRequired(), Length(max=20)])
+    last_name = StringField('Last Name', validators=[DataRequired(), Length(max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()])
     submit = SubmitField('Update')
 

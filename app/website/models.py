@@ -1,4 +1,5 @@
 from website import migrate, db, login_manager
+from website.enums import USStateEnum
 from sqlalchemy import Table, ForeignKey, Column
 from sqlalchemy.orm import backref, relationship
 from flask_login import UserMixin
@@ -41,3 +42,14 @@ class Association_Table(db.Model):
     product_id = db.Column(db.Integer, db.ForeignKey('Products.id'))
     user = relationship(User, backref=backref("orders", cascade="all, delete-orphan"))
     product = relationship(Product, backref=backref("orders", cascade="all, delete-orphan"))
+
+
+class Mailing_Address_Table(db.Model):
+    __tablename__ = 'Mailing_Addresses'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(20), unique=False, nullable=False)
+    phone_number = db.Column(db.Integer(20), unique=False, nullable=True)
+    address = db.Column(db.String(40), unique=False, nullable=False)
+    city = db.Column(db.String(20), unique=False, nullable=False)
+    state = db.Column(db.Enum(USStateEnum), unique=False, nullable=False)
+    zip = db.Column(db.String(20), unique=False, nullable=False)
