@@ -1,7 +1,4 @@
 import sys
-from flask_migrate import current
-
-from werkzeug.utils import append_slash_redirect
 from website import app, db, bcrypt
 from website.forms import Loginform, Registerform, Accountform, AddressForm
 from website.models import User
@@ -41,7 +38,7 @@ def cart():
 @app.route("/account/details/addresses", methods=['GET', 'POST'])
 @login_required
 def addresses():
-    
+
     return render_template('addresses.html')
 
 @app.route("/account/details/addresses/add", methods=['GET', 'POST'])
