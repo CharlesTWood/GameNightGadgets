@@ -6,6 +6,8 @@ db.create_all()
 
 DB commands
 migrate DB: flask db migrate -m "message"
+Creating user in SQLite using Python:
+
 
 upgrade: flask db upgrade
 

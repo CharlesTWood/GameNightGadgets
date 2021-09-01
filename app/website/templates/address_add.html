@@ -1,0 +1,41 @@
+{% extends "settings.html" %}
+{% block menu_content %}
+<legend class="border-bottom ">Addresses</legend>
+<div class="content_section">
+    <fieldset class="form-group">
+        <div class="form-group">
+            {{ form.name.label(class="form-control-label") }}
+            {% if form.name.errors %}
+                {{ form.name(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in for.name.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.name(class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.phone_number.label(class="form-control-label") }}
+            {% if form.phone_number.errors %}
+                {{ form.phone_number(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.phone_number.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.phone_number(class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+        <form method="POST" action="" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </fieldset> 
+</div>
+{% endblock menu_content %}

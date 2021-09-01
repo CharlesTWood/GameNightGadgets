@@ -15,12 +15,11 @@ class User(db.Model, UserMixin):
     __tablename__ = 'User_Accounts'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
-    mailing_address = db.Column(db.String, nullable=True)
-    zip_code = db.Column(db.String, nullable=True)
     email = db.Column(db.String(40), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
     subscriber = db.Column(db.Boolean, default=False, nullable=True)
     products = relationship("Product", secondary='Owned_Items')
+    mailing_address = relationship("Mailing_Address_Table")
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
@@ -48,8 +47,10 @@ class Mailing_Address_Table(db.Model):
     __tablename__ = 'Mailing_Addresses'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), unique=False, nullable=False)
-    phone_number = db.Column(db.Integer(20), unique=False, nullable=True)
-    address = db.Column(db.String(40), unique=False, nullable=False)
+    phone_number = db.Column(db.Integer, unique=False, nullable=True)
+    address = db.Column(db.String(40), unique=False, nullable=False, default='PO BOX')
     city = db.Column(db.String(20), unique=False, nullable=False)
+    organization = db.Column(db.String(20), unique=False, nullable=True)
+    po_box = db.Column(db.String(40), unique=False, nullable=False, default='N/A')
     state = db.Column(db.Enum(USStateEnum), unique=False, nullable=False)
     zip = db.Column(db.String(20), unique=False, nullable=False)

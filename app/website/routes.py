@@ -3,7 +3,7 @@ from flask_migrate import current
 
 from werkzeug.utils import append_slash_redirect
 from website import app, db, bcrypt
-from website.forms import Loginform, Registerform, Accountform
+from website.forms import Loginform, Registerform, Accountform, AddressForm
 from website.models import User
 from flask import url_for, render_template, redirect, request, flash
 from flask_login import login_user, current_user, logout_user, login_required
@@ -37,6 +37,18 @@ def purchases():
 @app.route("/cart", methods=['GET', 'POST'])
 def cart():
     return render_template('about.html')
+
+@app.route("/account/details/addresses", methods=['GET', 'POST'])
+@login_required
+def addresses():
+    
+    return render_template('addresses.html')
+
+@app.route("/account/details/addresses/add", methods=['GET', 'POST'])
+@login_required
+def addresses_add():
+    form = AddressForm()
+    return render_template('addresses.html', form=form)
 
 #URL for when a user wants to see their personal information
 @app.route("/account/details", methods=['GET', 'POST'])

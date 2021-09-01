@@ -1,0 +1,23 @@
+{% extends "settings.html" %}
+{% block menu_content %}
+<legend class="border-bottom ">Addresses</legend>
+<div class="content_section">
+    {% for address in addresses %}
+
+
+    <div id="tripple-cards" class="container">
+        <div class="row justify-content-md-center">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Address 1</h5>
+                <p class="card-text">Select an adventure pack from our catalog. Each adventure comes with a full art-hard cover booklet to guide you through the adventure, and all the minis that you will need.</p>
+              </div>
+              <div class="card-body">
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+              </div>
+            </div>
+        </div>
+      </div>
+</div>
+{% endblock menu_content %}
