@@ -1,5 +1,5 @@
-from website import migrate, db, login_manager
-from website.enums import USStateEnum
+from website import db, login_manager
+from website.account_menu.enums import USStateEnum
 from sqlalchemy import Table, ForeignKey, Column
 from sqlalchemy.orm import backref, relationship
 from flask_login import UserMixin
