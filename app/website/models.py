@@ -19,7 +19,8 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(100), nullable=False)
     subscriber = db.Column(db.Boolean, default=False, nullable=True)
     products = relationship("Product", secondary='Owned_Items')
-    mailing_address = relationship("Mailing_Address_Table")
+    address_id = Column(db.Integer, ForeignKey('Mailing_Addresses.id'))
+    child = relationship("Mailing_Address_Table", back_populates="user")
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
@@ -54,3 +55,4 @@ class Mailing_Address_Table(db.Model):
     po_box = db.Column(db.String(40), unique=False, nullable=False, default='N/A')
     state = db.Column(db.Enum(USStateEnum), unique=False, nullable=False)
     zip = db.Column(db.String(20), unique=False, nullable=False)
+    user = relationship("User", back_populates="address")

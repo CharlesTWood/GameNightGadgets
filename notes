@@ -4,12 +4,12 @@ Create DB
 from website import db
 db.create_all()
 
+How to update the DB:
+
+https://flask-migrate.readthedocs.io/en/latest/
+
 DB commands
-migrate DB: flask db migrate -m "message"
 Creating user in SQLite using Python:
-
-
-upgrade: flask db upgrade
 
 virtualenv pydev
 pydev\Scripts\activate
