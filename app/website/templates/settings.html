@@ -22,7 +22,7 @@
                         <a href="#">Wish List</a>
                     </li>
                     <li>
-                        <a href="{{ url_for('purchases') }}">My Purchases</a>
+                        <a href="{{ url_for('account_menu.purchases') }}">My Purchases</a>
                     </li>
                 </ul>
             </li>
@@ -30,7 +30,7 @@
                 <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Account Details</a>
                 <ul class="collapse list-unstyled" id="homeSubmenu">
                     <li>
-                        <a href="{{ url_for('account_details') }}">Account details</a>
+                        <a href="{{ url_for('account_menu.account_details') }}">Account details</a>
                     </li>
                     <li>
                         <a href="#">Security Settings</a>
@@ -39,10 +39,10 @@
                         <a href="#">Payment Information</a>
                     </li>
                     <li>
-                        <a href="{{ url_for('purchases') }}">My Purchases</a>
+                        <a href="{{ url_for('account_menu.purchases') }}">My Purchases</a>
                     </li>
                     <li>
-                        <a href="{{ url_for('addresses') }}">Addresses</a>
+                        <a href="{{ url_for('account_menu.addresses') }}">Addresses</a>
                     </li>
                 </ul>
             </li>
@@ -60,8 +60,9 @@
         <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fas fa-align-justify"></i>
         </button>
-
-        {% block menu_content %}{% endblock %}
+        <div class="container" id="settings_box">
+            {% block menu_content %}{% endblock %}
+        </div>
     </div>
 </div>
 

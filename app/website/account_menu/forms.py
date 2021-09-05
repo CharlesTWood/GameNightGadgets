@@ -21,16 +21,14 @@ class PasswordForm(FlaskForm):
     confirm_password = PasswordField('Confirm New Password', validators=[DataRequired(), EqualTo('new_password')])
     submit = SubmitField('Update')
 
+
 class AddressForm(FlaskForm):
-    choices = USStateEnum
     name = StringField('Name on address', validators=[DataRequired(), Length(max=20)])
     phone_number = TelField('Contact Phone #', validators=[Length(max=14)])
     address = StringField('Your address', validators=[DataRequired(), Length(max=30)])
     city = StringField('City', validators=[DataRequired(), Length(max=20)])
     organization = StringField('Organization Name', validators=[Length(max=20)])
-    po_box = StringField('P.O Box', validators=[DataRequired(), Length(max=20)])
-    state = SelectField('State', choices=[(choice.name, choice.value) for choice in choices])
-    zip_code = StringField('Postal Code', validators=[DataRequired(), Length(max=20)])
+    po_box = StringField('P.O Box', validators=[Length(max=20)])
+    state = SelectField('State', choices=[(choice.name, choice.value) for choice in USStateEnum])
+    zip = StringField('Postal Code', validators=[DataRequired(), Length(max=20)])
     submit = SubmitField('Add address')
-
-

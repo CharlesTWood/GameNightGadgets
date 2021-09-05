@@ -8,7 +8,7 @@
             {% if form.name.errors %}
                 {{ form.name(class="form-control form-control-lg is-invalid") }}
                 <div class="invalid-feedback">
-                    {% for error in for.name.errors %}
+                    {% for error in form.name.errors %}
                         <span>{{ error }}</span>
                     {% endfor %}
                 </div>
@@ -29,6 +29,85 @@
                 {{ form.phone_number(class="form-control form-control-lg") }}
             {% endif %}
         </div>
+        <div class="form-group">
+            {{ form.address.label(class="form-control-label") }}
+            {% if form.address.errors %}
+                {{ form.address(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.address.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.address(class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.city.label(class="form-control-label") }}
+            {% if form.city.errors %}
+                {{ form.city(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.city.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.city(class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.organization.label(class="form-control-label") }}
+            {% if form.organization.errors %}
+                {{ form.organization(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.organization.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.organization(class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.po_box.label(class="form-control-label") }}
+            {% if form.po_box.errors %}
+                {{ form.po_box(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.po_box.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.po_box(class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.state.label(class="form-control-label") }}
+            {% if form.state.errors %}
+                {{ form.state(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.state.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.state(class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.zip.label(class="form-control-label") }}
+            {% if form.zip.errors %}
+                {{ form.zip(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.zip.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.zip(class="form-control form-control-lg") }}
+            {% endif %}
+        </div>
+
         <form method="POST" action="" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             

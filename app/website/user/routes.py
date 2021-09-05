@@ -11,36 +11,37 @@ user = Blueprint('user', __name__)
 def register():
     form = Registerform()
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for('main.home'))
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         flash(form.username.data)
+        print("The form data: ", form.username.data, form.password.data, form.email.data, file=sys.stdout)
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
         flash('Your account has been created!', 'success')
-        return redirect(url_for('home'))
+        return redirect(url_for('main.home'))
     return render_template('register.html', form=form)
 
 @user.route('/login', methods=['GET', 'POST'])
 def login():
     form = Loginform()
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for('main.home'))
         
     if form.validate_on_submit() or request.method == 'POST':
         request_form = request.form
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user)
-            return redirect(url_for('home'))
+            return redirect(url_for('main.home'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
         if request_form:
             user = User.query.filter_by(email=request_form['email']).first()
             if user and bcrypt.check_password_hash(user.password, request_form['password']):
                 login_user(user)
-                return redirect(url_for('home'))
+                return redirect(url_for('main.home'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
             

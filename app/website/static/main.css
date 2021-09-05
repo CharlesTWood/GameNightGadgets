@@ -52,6 +52,14 @@
   margin-top: 1%;
 }
 
+#settings_box{
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(143, 143, 143);
+  outline: #e0e0e0 solid 2px;
+  margin: auto;  
+  padding: 20px;
+}
+
 #login_legend{
   font-family: poet;
   margin-left: calc(50% - 95px - 8px);
