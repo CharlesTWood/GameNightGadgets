@@ -1,10 +1,10 @@
 from flask import render_template, Blueprint, url_for
 from website.user.forms import Loginform
-from website import current_app
+from website import app
 
 main = Blueprint('main', __name__)
 
-@current_app.context_processor
+@app.context_processor
 def login_form():
     nav_login_form = Loginform()
     return dict(navbar_login_form=nav_login_form)
