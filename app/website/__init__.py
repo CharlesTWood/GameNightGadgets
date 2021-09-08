@@ -16,6 +16,8 @@ db.init_app(app)
 migrate.init_app(app, db)
 bcrypt.init_app(app)
 login_manager.init_app(app)
+app.config.from_object(Config)
+
 
 from website.user.routes import user
 from website.account_menu.routes import account_menu

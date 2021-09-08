@@ -1,7 +1,6 @@
-
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, SelectField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms.validators import DataRequired, Length, Email, EqualTo, InputRequired
 from wtforms.fields.html5 import TelField
 
 from website.account_menu.enums import USStateEnum
@@ -23,12 +22,12 @@ class PasswordForm(FlaskForm):
 
 
 class AddressForm(FlaskForm):
-    name = StringField('Name on address', validators=[DataRequired(), Length(max=20)])
-    phone_number = TelField('Contact Phone #', validators=[Length(max=14)])
-    address = StringField('Your address', validators=[DataRequired(), Length(max=30)])
-    city = StringField('City', validators=[DataRequired(), Length(max=20)])
+    name = StringField('Name', validators=[DataRequired(), Length(max=20)])
+    phone_number = TelField('Contact Phone Number', validators=[Length(max=14)])
+    address = StringField('Address', validators=[Length(max=30)])
+    city = StringField('City', validators=[Length(max=20)])
     organization = StringField('Organization Name', validators=[Length(max=20)])
     po_box = StringField('P.O Box', validators=[Length(max=20)])
-    state = SelectField('State', choices=[(choice.name, choice.value) for choice in USStateEnum])
-    zip = StringField('Postal Code', validators=[DataRequired(), Length(max=20)])
+    state = SelectField('State', choices=[(choice.name, choice.value) for choice in USStateEnum], validate_choice=False)
+    zip = StringField('Postal Code', validators=[Length(max=20)])
     submit = SubmitField('Add address')

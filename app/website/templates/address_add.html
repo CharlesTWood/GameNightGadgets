@@ -3,6 +3,7 @@
 <legend class="border-bottom ">Addresses</legend>
 <div class="content_section">
     <fieldset class="form-group">
+        <div id="wrapper">
         <div class="form-group">
             {{ form.name.label(class="form-control-label") }}
             {% if form.name.errors %}
@@ -115,6 +116,7 @@
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>
         </form>
+        </div>
     </fieldset> 
 </div>
 {% endblock menu_content %}

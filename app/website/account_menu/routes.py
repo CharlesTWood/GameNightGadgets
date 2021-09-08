@@ -1,3 +1,6 @@
+import sys
+
+from werkzeug.utils import validate_arguments
 from website import db
 from website.account_menu.forms import Accountform, AddressForm
 from website.models import Mailing_Address_Table
@@ -29,20 +32,22 @@ def addresses():
     addresses = current_user.addresses
     return render_template('addresses.html', addresses=addresses)
 
-@account_menu.route("/account/details/addresses/add", methods=['GET', 'POST'])
+@account_menu.route('/account/details/addresses/add', methods=['GET', 'POST'])
 @login_required
 def addresses_add():
     form = AddressForm()
     if form.validate_on_submit():
-        address = Mailing_Address_Table(name=form.name.data, 
+        print(form.data, file=sys.stderr)
+        address = Mailing_Address_Table(
+        name=form.name.data, 
         phone_number=form.phone_number.data, 
         address=form.address.data,
         city=form.city.data,
         organization=form.city.data,
         po_box=form.po_box.data,
-        state=USStateEnum[form.state.data],
-        zip=form.zip.data,
-        user=current_user.id)
+        state=form.state.data,
+        zip=form.zip.data)
+        #user=cur rent_user.id)
 
         db.session.add(address)
         db.session.commit()
