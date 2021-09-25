@@ -26,15 +26,13 @@ def account_details():
 @login_required
 def addresses():
     addresses = current_user.addresses
+    print(current_user, file=sys.stderr)
     return render_template('addresses.html', addresses=addresses)
 
 @account_menu.route('/account/details/addresses/add', methods=['GET', 'POST'])
 @login_required
 def addresses_add():
     form = AddressForm()
-    if request.method == 'POST':
-            print(form.data, file=sys.stderr)
-
     if form.validate_on_submit():
         address = Mailing_Address_Table(
         name=form.name.data, 
