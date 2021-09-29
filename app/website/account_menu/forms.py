@@ -30,3 +30,7 @@ class AddressForm(FlaskForm):
     state = SelectField('State', choices=[(choice.name, choice.value) for choice in USStateEnum], validators=[DataRequired()], validate_choice=False)
     zip = StringField('Postal Code', validators=[DataRequired(), Length(max=20)])
     submit = SubmitField('Add address')
+
+class AddressUpdateForm(AddressForm):
+    submit = SubmitField('Update')
+

@@ -5,22 +5,24 @@
     {% for address in addresses %}
     <div id="tripple-cards" class="container">
         <div class="row justify-content-md-center">
-            <div class="card">
+            <div class="card" id="address_card">
               <div class="card-body">
-                <h5 class="card-title">Contact Name: {{ addresses.name }}</h5>
-                <p class="card-text">Select an adventure pack from our catalog. Each adventure comes with a full art-hard cover booklet to guide you through the adventure, and all the minis that you will need.</p>
+                <h5 class="card-title">{{ address.name }}</h5>
+                <li class="card-text" id="address_li">{{ address.address }}</li>
+                <li class="card-text" id="address_li">{{ address.state }}</li>
+                <li class="card-text" id="address_li">{{ address.city }}</li>
+                <li class="card-text" id="address_li">{{ address.zip }}</li>
               </div>
               <div class="card-body">
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
+                <a href="{{ url_for('account_menu.addresses_update', address_id=address.id) }}" class="btn btn-outline-info" type="submit">Edit</a>
+                <a href="{{ url_for('account_menu.addresses_delete', address_id=address.id) }}" class="btn btn-outline-danger" type="submit">Delete</a>
               </div>
             </div>
         </div>
       </div>
       {% endfor %}
   <div class=container>
-    <p>No addresses to display.</p>
-    <a href="{{ url_for('account_menu.addresses_add') }}" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Add Address</a>
+      <a href="{{ url_for('account_menu.addresses_add') }}" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Add Address</a>
   </div>
 </div>
 {% endblock menu_content %}

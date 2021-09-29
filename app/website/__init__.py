@@ -6,7 +6,6 @@ from flask_bcrypt import Bcrypt
 from website.config import Config
 from flask_migrate import Migrate
 import configparser
-import sqlite3
 
 app = Flask(__name__)
 db = SQLAlchemy()
@@ -23,13 +22,14 @@ app.config.from_object(Config)
 config = configparser.ConfigParser()
 
 try:
-    conf = r'C:/Users/Charles/repos/gng/app/website/configurations/config.ini'
+    conf = r'website/configurations/config.ini'
     print('Reading config file')
     config.read(conf)
     print('config read at path: ', conf)
 
 except:
     print("File error when reading config", conf)
+
 print(config.items('SQLITE'), file=sys.stderr)
 #con = sqlite3.connect(config['SQLITE']['db_path'])
 
