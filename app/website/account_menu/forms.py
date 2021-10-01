@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
-
 from website.account_menu.enums import USStateEnum
 from website.user.utilities import Password_complexity
+
 
 class Accountform(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(max=20)])
@@ -31,6 +31,6 @@ class AddressForm(FlaskForm):
     zip = StringField('Postal Code', validators=[DataRequired(), Length(max=20)])
     submit = SubmitField('Add address')
 
+
 class AddressUpdateForm(AddressForm):
     submit = SubmitField('Update')
-

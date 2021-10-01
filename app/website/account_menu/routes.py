@@ -2,14 +2,14 @@ from operator import add
 import sys
 from website import db
 from website.account_menu.forms import Accountform, AddressForm, AddressUpdateForm
-from website.models import Mailing_Address_Table, User
+from website.models import Mailing_Address_Table, Association_Table
 
-from flask import render_template, request, Blueprint, redirect, url_for, abort
+from flask import render_template, request, Blueprint, request, redirect, url_for, abort
 from flask_login import current_user, login_required
 
-account_menu = Blueprint('account_menu', __name__)
+account_menu = Blueprint('account_menu', __name__, template_folder='templates')
 
-#URL for when a user wants to see their personal information
+#Personal info root path
 @account_menu.route("/account/details", methods=['GET', 'POST'])
 @login_required
 def account_details():
@@ -91,9 +91,14 @@ def addresses_delete(address_id):
     db.session.commit()
     return redirect(url_for('account_menu.addresses'))
 
-
 @account_menu.route("/account/details/purchases", methods=['GET', 'POST'])
 @login_required
 def purchases():
-    return render_template('addresses.html')
+    purchases = Association_Table.query.filter_by(user_id=current_user.id)
+    return render_template('purchases.html', purchases=purchases)
 
+#REST endpoint for creating products. Testing only
+@account_menu.route("/admin/products/create", methods=['GET', 'POST'])
+def create_product():
+    headers = dict(request.headers)
+    return headers

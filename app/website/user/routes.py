@@ -5,7 +5,7 @@ from website.models import User
 from flask import url_for, render_template, redirect, request, flash, Blueprint
 from flask_login import login_user, current_user, logout_user
 
-user = Blueprint('user', __name__)
+user = Blueprint('user', __name__, template_folder='templates')
 
 @user.route('/register', methods=['GET', 'POST'])
 def register():
@@ -17,7 +17,6 @@ def register():
         user = User(username=form.username.data, 
         email=form.email.data, 
         password=hashed_password)
-
         db.session.add(user)
         db.session.commit()
         flash('Your account has been created!', 'success')
