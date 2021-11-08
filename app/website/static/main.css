@@ -1,38 +1,42 @@
-@font-face{
+@font-face {
   font-family: poet;
   font-weight: bold;
   src: url('fonts/PoetsenOne-Regular.ttf')
 }
 
-.carousel-inner img{
+.carousel-inner img {
   width:640px;
   height:540px;
 }
 
-.carousel-caption{
+.carousel-caption {
   top: 50%;
   transform: translateY(-50%)
 }
 
-.logo{
+.logo {
   display: block;
   width:75px;
   height:75px;
 }
 
-#front-page-img{
+#front-page-img {
   width:640px;
   height:500px;
 }
 
-.navbar-custom{
+.navbar-custom {
   background-color: #ffffff;
   height:75px
 }
 
-.nav-link{
+.nav-link {
   font-family: poet;
   color: black;
+}
+
+.nav-link:hover {
+  color: #6d4201
 }
 
 .navbar-brand{
@@ -45,6 +49,14 @@
   border: 1px solid #dddddd;
   border-radius: 3px;
   margin-bottom: 20px;
+}
+
+#main-search-bar {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 100px;
+  transform: translateY(-50%)
 }
 
 #register_box{
