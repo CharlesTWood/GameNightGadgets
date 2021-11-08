@@ -2,7 +2,7 @@ from operator import add
 import sys
 from website import db
 from website.account_menu.forms import Accountform, AddressForm, AddressUpdateForm
-from website.models import Mailing_Address_Table, Association_Table
+from website.models import Mailing_Address_Table, Association_Table, Product
 
 from flask import render_template, request, Blueprint, request, redirect, url_for, abort
 from flask_login import current_user, login_required
@@ -94,8 +94,17 @@ def addresses_delete(address_id):
 @account_menu.route("/account/details/purchases", methods=['GET', 'POST'])
 @login_required
 def purchases():
-    purchases = Association_Table.query.filter_by(user_id=current_user.id)
-    return render_template('purchases.html', purchases=purchases)
+    owned_items = []
+    purchase_id = Association_Table.query.filter_by(user_id=current_user.id).all()
+    for id in purchase_id:
+        product = Product.query.get(id.product_id)
+        owned_items.append(product)
+    return render_template('purchases.html', owned_items=owned_items)
+
+@account_menu.route("/account/details/security", methods=['GET', 'POST'])
+@login_required
+def security():
+    return render_template('security_settings.html')
 
 #REST endpoint for creating products. Testing only
 @account_menu.route("/admin/products/create", methods=['GET', 'POST'])

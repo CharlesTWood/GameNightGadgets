@@ -27,27 +27,21 @@
                 </ul>
             </li>
             <li class="active">
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Account Details</a>
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Account</a>
                 <ul class="collapse list-unstyled" id="homeSubmenu">
                     <li>
                         <a href="{{ url_for('account_menu.account_details') }}">Account details</a>
                     </li>
                     <li>
-                        <a href="#">Security Settings</a>
-                    </li>
-                    <li>
-                        <a href="#">Payment Information</a>
-                    </li>
-                    <li>
-                        <a href="{{ url_for('account_menu.purchases') }}">My Purchases</a>
-                    </li>
-                    <li>
                         <a href="{{ url_for('account_menu.addresses') }}">Addresses</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('account_menu.security') }}">Security</a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a href="#">Blah</a>
+                <a href="#">Delete Account</a>
             </li>
         </ul>
     </nav>

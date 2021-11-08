@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="content-section">
+        {% for item in owned_items %}
+            <div id="tripple-cards" class="container">
+                <div class="row justify-content-md-center">
+                    <div class="card" id="address_card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.name }}</h5>
+                            <li class="card-text" id="address_li">{{ item.product_details }}</li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %} 

@@ -1,9 +1,9 @@
+from sqlalchemy.sql.expression import nullslast
 from website import db, login_manager
 from sqlalchemy.orm import backref, relationship
 from flask_login import UserMixin
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import func
-
 
 @login_manager.user_loader
 def load_user(id):
@@ -23,7 +23,6 @@ class User(db.Model, UserMixin):
     products = relationship("Product", secondary='Owned_Items')
     addresses = relationship("Mailing_Address_Table", back_populates="user")
 
-
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
 
@@ -41,15 +40,6 @@ class Product(db.Model):
     users = relationship("User", secondary='Owned_Items')
 
 
-class Association_Table(db.Model):
-    __tablename__ = 'Owned_Items'
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db .Integer, db .ForeignKey('User_Accounts.id'))
-    product_id = db.Column(db.Integer, db.ForeignKey('Products.id'))
-    user = relationship(User, backref=backref("orders", cascade="all, delete-orphan"))
-    product = relationship(Product, backref=backref("orders", cascade="all, delete-orphan"))
-
-
 class Mailing_Address_Table(db.Model):
     __tablename__ = 'Mailing_Addresses'
     id = db.Column(db.Integer, primary_key=True)
@@ -63,3 +53,13 @@ class Mailing_Address_Table(db.Model):
     zip = db.Column(db.String(20), unique=False, nullable=False)
     user_id = db.Column(db.ForeignKey(User.id))
     user = relationship("User", back_populates="addresses") #Backref to User
+
+
+class Association_Table(db.Model):
+    __tablename__ = 'Owned_Items'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db .Integer, db .ForeignKey('User_Accounts.id'))
+    product_id = db.Column(db.Integer, db.ForeignKey('Products.id'))
+    user = relationship(User, backref=backref("orders", cascade="all, delete-orphan"))
+    product = relationship(Product, backref=backref("orders", cascade="all, delete-orphan"))
+    date_added = db.Column(db.Date, server_default=func.now(), nullable=True)
