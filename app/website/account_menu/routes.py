@@ -106,8 +106,14 @@ def purchases():
 def security():
     return render_template('security_settings.html')
 
+@account_menu.route("/account/details/cart", methods=['GET', 'POST'])
+def shopping_cart():
+    return render_template('security_settings.html')
+
 #REST endpoint for creating products. Testing only
 @account_menu.route("/admin/products/create", methods=['GET', 'POST'])
 def create_product():
     headers = dict(request.headers)
     return headers
+
+
