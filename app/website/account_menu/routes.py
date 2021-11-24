@@ -1,5 +1,9 @@
 from operator import add
-import sys
+import sys, datetime
+from sqlalchemy.sql.expression import false
+
+from werkzeug.datastructures import Headers
+from werkzeug.local import release_local
 from website import db
 from website.account_menu.forms import Accountform, AddressForm, AddressUpdateForm
 from website.models import Mailing_Address_Table, Association_Table, Product
@@ -110,10 +114,42 @@ def security():
 def shopping_cart():
     return render_template('security_settings.html')
 
-#REST endpoint for creating products. Testing only
+
+def write_to_db(item):
+    db.session.add(item)
+    db.session.commit()
+
+# REST endpoint for creating products.
+# Need to add superuser access only to this route
 @account_menu.route("/admin/products/create", methods=['GET', 'POST'])
 def create_product():
     headers = dict(request.headers)
-    return headers
+    pre_order_status = False
+    print(headers)
+
+    try:
+        release_date = str(headers['Release-Date'])
+        date_time_obj = datetime.datetime.strptime(release_date, '%Y-%m-%d %H:%M:%S')
+    except ValueError:
+        raise Exception(f'time data, {release_date}  does not match format %Y-%m-%d %H:%M:%S')
+
+    try:
+        if headers['Pre-Order'] == 'true':
+            pre_order_status = True
+        product = Product(
+        name = headers['Name'], 
+        price = float(headers['Price']),
+        product_details = headers['Product-Details'],
+        description = headers['Description'],
+        pre_order = pre_order_status,
+        release_date = date_time_obj)
+        write_to_db(product)
+        return headers
+    except KeyError as k:
+        raise Exception(f'Missing:,{k} You must provide a key/value for key:, {k}')
+
+
+
+
 
 

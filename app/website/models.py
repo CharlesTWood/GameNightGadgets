@@ -34,7 +34,7 @@ class Product(db.Model):
     price = db.Column(db.Numeric)
     product_details = db.Column(db.String)
     description = db.Column(db.String(), unique=False, nullable=False)
-    pre_order = db.Column(db.Boolean)
+    pre_order = db.Column(db.Boolean, default=False, server_default='false')
     date_added = db.Column(db.Date, server_default=func.now())
     release_date = db.Column(db.DateTime, nullable=True)
     users = relationship("User", secondary='Owned_Items')
