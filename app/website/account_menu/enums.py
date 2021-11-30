@@ -1,6 +1,7 @@
 import enum
 
 class USStateEnum(enum.Enum):
+    NULL = ''
     Alabama = 'AL'
     Alaska = 'AK'
     American_Samoa = 'AS'

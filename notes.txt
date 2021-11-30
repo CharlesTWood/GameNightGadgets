@@ -1,0 +1,35 @@
+To start the server 'python run.py'
+
+Create DB
+from website import db
+db.create_all()
+
+How to update the DB:
+
+https://flask-migrate.readthedocs.io/en/latest/
+
+DB commands
+Creating user in SQLite using Python:
+
+virtualenv pydev
+pydev\Scripts\activate
+
+print to console using stout
+print('Hello world!', file=sys.stderr)
+
+Basic sql query get
+user = User.query.get(1)
+
+How DB relationships work in sqlalchemy: https://docs.sqlalchemy.org/en/14/tutorial/orm_related_objects.html
+
+TEST USER and APPEND the address, and product(sqlalchemy):
+from website import app
+app.app_context().push()
+from website.models import User, Mailing_Address_Table, Product
+from website import db
+user = User(username = "TomRiddle", email = "tom@riddle.com", password = "harrysucks")
+address = Mailing_Address_Table(name = "Tome Riddle", address = "The old Riddle estate", city = "poopyland", organization = "Hogwarts School of Witchcraft and Wizardry", state = "NC", zip = 25446)
+product = Product(name = "Horcrux creation for dummies", price = 5.50, product_details = "Series 1 of 7, difficulty: moderate", description = "Create immortality by parsing your soul into other objects!")
+user.addresses.append(address)
+db.session.add(user)
+db.session.commit()
