@@ -9,3 +9,6 @@ def Password_complexity(form, field):
                 if char == special: valid = True  
     if valid == False:
         raise ValidationError('Password must contain at lease one special character')
+
+def Instock(form, field):
+    pass

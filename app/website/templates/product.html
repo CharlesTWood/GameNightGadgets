@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="content_section">
+
+    <div class="card" id=product_card>
+        <div class="row">
+            <div class="col-sm">
+                <img class="card-img" id=product-image src={{cover}}>
+            </div>
+               <div class="col-sm">
+                <div class="card-title">{{product.name}}</div>
+                <p class="card-text">{{product.description}}</p>           
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

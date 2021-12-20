@@ -2,8 +2,6 @@ from operator import add
 import sys, datetime
 from sqlalchemy.sql.expression import false
 
-from werkzeug.datastructures import Headers
-from werkzeug.local import release_local
 from website import db
 from website.account_menu.forms import Accountform, AddressForm, AddressUpdateForm
 from website.models import Mailing_Address_Table, Association_Table, Product
@@ -114,7 +112,6 @@ def security():
 def shopping_cart():
     return render_template('security_settings.html')
 
-
 def write_to_db(item):
     db.session.add(item)
     db.session.commit()
@@ -137,7 +134,8 @@ def create_product():
         if headers['Pre-Order'] == 'true':
             pre_order_status = True
         product = Product(
-        name = headers['Name'], 
+        name = headers['Name'],
+        cover = headers['Cover'],
         price = float(headers['Price']),
         product_details = headers['Product-Details'],
         description = headers['Description'],

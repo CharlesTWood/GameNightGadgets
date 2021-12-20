@@ -30,7 +30,9 @@ class User(db.Model, UserMixin):
 class Product(db.Model):
     __tablename__ = 'Products'
     id = db.Column(db.Integer, primary_key=True, nullable=True)
+    cover = db.Column(db.String(20), unique=False, nullable=True)
     name = db.Column(db.String(20), unique=False, nullable=False)
+    stock = db.Column(db.Integer, nullable=False, default=0)
     price = db.Column(db.Numeric)
     product_details = db.Column(db.String)
     description = db.Column(db.String(), unique=False, nullable=False)
