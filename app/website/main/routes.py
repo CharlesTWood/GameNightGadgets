@@ -1,9 +1,6 @@
-import re
-from flask import render_template, Blueprint, url_for, session, request
-from werkzeug.utils import redirect
-from wtforms import form
+from flask import render_template, Blueprint, url_for, session
 
-from website.models import Product
+from website.models import Adventure_Kit
 from website.user.forms import Loginform
 from website.main.forms import Add_Cart
 from website import app
@@ -14,6 +11,11 @@ main = Blueprint('main', __name__)
 def login_form():
     nav_login_form = Loginform()
     return dict(navbar_login_form=nav_login_form)
+
+@app.context_processor
+def gadgets():
+    gadgets = Adventure_Kit.query.all()
+    return dict(gadgets=gadgets)
 
 @main.route('/home', methods=['GET', 'POST'])
 @main.route("/", methods=['GET', 'POST'])
@@ -31,15 +33,14 @@ def home():
 def about():
     return render_template('about.html')
 
-@main.route('/kits', methods=['GET', 'POST'])
-def kits():
-    products = Product.query.all()
-    print(products)
+@main.route('/adventure_kits')
+def adventure_kits():
+    products = Adventure_Kit.quert.all()
     return render_template('kits.html', products=products)
 
-@main.route('/product/<int:product_id>')
-def product(product_id):
-    product = Product.query.get(product_id)
+@main.route('/adventure_kit/<int:product_id>')
+def adventure_kit(product_id):
+    product = Adventure_Kit.query.get(int(product_id))
     cover = url_for('static', filename='site_images/stoledis.jpeg')
     cart = Add_Cart()
     

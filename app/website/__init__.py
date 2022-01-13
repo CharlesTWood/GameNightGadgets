@@ -1,9 +1,10 @@
-import sys
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
+
 from website.config import Config
+
 from flask_migrate import Migrate
 import configparser
 
@@ -29,9 +30,6 @@ try:
 
 except:
     print("File error when reading config", conf)
-
-print(config.items('SQLITE'), file=sys.stderr)
-#con = sqlite3.connect(config['SQLITE']['db_path'])
 
 from website.user.routes import user
 from website.account_menu.routes import account_menu

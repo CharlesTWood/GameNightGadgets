@@ -3,6 +3,7 @@ import sys, datetime
 from sqlalchemy.sql.expression import false
 
 from website import db
+from website.utilities import write_to_db
 from website.account_menu.forms import Accountform, AddressForm, AddressUpdateForm
 from website.models import Mailing_Address_Table, Association_Table, Product
 
@@ -46,9 +47,8 @@ def addresses_add():
         state = form.state.data,
         zip = form.zip.data,
         user_id = current_user.id)
-
-        db.session.add(address)
-        db.session.commit()
+        write_to_db(address)
+        
         return redirect(url_for('account_menu.addresses'))
     return render_template('address_add.html', form=form)
 
@@ -89,8 +89,7 @@ def addresses_delete(address_id):
     if current_user.id != address.user_id:
         abort(403)
     print(address, file=sys.stderr)
-    db.session.delete(address)
-    db.session.commit()
+    write_to_db(address)
     return redirect(url_for('account_menu.addresses'))
 
 @account_menu.route("/account/details/purchases", methods=['GET', 'POST'])
@@ -111,10 +110,6 @@ def security():
 @account_menu.route("/account/details/cart", methods=['GET', 'POST'])
 def shopping_cart():
     return render_template('security_settings.html')
-
-def write_to_db(item):
-    db.session.add(item)
-    db.session.commit()
 
 # REST endpoint for creating products.
 # Need to add superuser access only to this route

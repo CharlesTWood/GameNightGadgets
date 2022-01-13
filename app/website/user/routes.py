@@ -1,4 +1,4 @@
-import sys
+from website.utilities import write_to_db
 from website import db, bcrypt
 from website.user.forms import Loginform, Registerform
 from website.models import User
@@ -17,8 +17,7 @@ def register():
         user = User(username=form.username.data, 
         email=form.email.data, 
         password=hashed_password)
-        db.session.add(user)
-        db.session.commit()
+        write_to_db(user)
         flash('Your account has been created!', 'success')
         return redirect(url_for('main.home'))
     return render_template('register.html', form=form)
