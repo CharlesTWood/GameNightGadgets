@@ -33,3 +33,5 @@ product = Product(name = "Horcrux creation for dummies", price = 5.50, product_d
 user.addresses.append(address)
 db.session.add(user)
 db.session.commit()
+
+mini_shrine = Mini_Shrine(name='steve', product_details='asdas', description='asdasd', mini_name='mininame', mini_font='asdasd', bio_message='asdasdsadas', bio_font='asdasdasdasasd', globe_color='asdasdasdasdasd', back_plate_wood_species='asdasdas', bottom_plate_wood_species='asdasdadsa')

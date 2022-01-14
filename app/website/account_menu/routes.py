@@ -2,7 +2,7 @@ from operator import add
 import sys, datetime
 from sqlalchemy.sql.expression import false
 
-from website import db
+from website import db, app
 from website.utilities import write_to_db
 from website.account_menu.forms import Accountform, AddressForm, AddressUpdateForm
 from website.models import Mailing_Address_Table, Association_Table, Product
@@ -12,8 +12,8 @@ from flask_login import current_user, login_required
 
 account_menu = Blueprint('account_menu', __name__, template_folder='templates')
 
-#Personal info root path
-@account_menu.route("/account/details", methods=['GET', 'POST'])
+'''Personal info root url'''
+@account_menu.route(app.config['ACCOUNT_DETAILS_URL'], methods=['GET', 'POST'])
 @login_required
 def account_details():
     form = Accountform()
@@ -26,13 +26,13 @@ def account_details():
         form.email.data = current_user.email
     return render_template('account_details.html', form=form)
 
-@account_menu.route("/account/details/addresses", methods=['GET', 'POST'])
+@account_menu.route(f'{app.config["ACCOUNT_DETAILS_URL"]}/addresses', methods=['GET', 'POST'])
 @login_required
 def addresses():
     addresses = Mailing_Address_Table.query.filter_by(user_id=current_user.id)
     return render_template('addresses.html', addresses=addresses)
 
-@account_menu.route('/account/details/addresses/add', methods=['GET', 'POST'])
+@account_menu.route(f'{app.config["ACCOUNT_DETAILS_URL"]}/addresses/add', methods=['GET', 'POST'])
 @login_required
 def addresses_add():
     form = AddressForm()
@@ -52,7 +52,7 @@ def addresses_add():
         return redirect(url_for('account_menu.addresses'))
     return render_template('address_add.html', form=form)
 
-@account_menu.route('/account/details/addresses/<int:address_id>/edit', methods=['GET', 'POST'])
+@account_menu.route(f'{app.config["ACCOUNT_DETAILS_URL"]}/addresses/<int:address_id>/edit', methods=['GET', 'POST'])
 @login_required
 def addresses_update(address_id):
     address = Mailing_Address_Table.query.get_or_404(address_id)
@@ -82,7 +82,7 @@ def addresses_update(address_id):
  
     return render_template('address_add.html', form=form)
 
-@account_menu.route('/account/details/addresses/<int:address_id>/delete', methods=['GET', 'POST'])
+@account_menu.route(f'{app.config["ACCOUNT_DETAILS_URL"]}/addresses/<int:address_id>/delete', methods=['GET', 'POST'])
 @login_required
 def addresses_delete(address_id):
     address = Mailing_Address_Table.query.get_or_404(address_id)
@@ -92,7 +92,7 @@ def addresses_delete(address_id):
     write_to_db(address)
     return redirect(url_for('account_menu.addresses'))
 
-@account_menu.route("/account/details/purchases", methods=['GET', 'POST'])
+@account_menu.route(f'{app.config["ACCOUNT_DETAILS_URL"]}/purchases', methods=['GET', 'POST'])
 @login_required
 def purchases():
     owned_items = []
@@ -102,12 +102,12 @@ def purchases():
         owned_items.append(product)
     return render_template('purchases.html', owned_items=owned_items)
 
-@account_menu.route("/account/details/security", methods=['GET', 'POST'])
+@account_menu.route(f'{app.config["ACCOUNT_DETAILS_URL"]}/security', methods=['GET', 'POST'])
 @login_required
 def security():
     return render_template('security_settings.html')
 
-@account_menu.route("/account/details/cart", methods=['GET', 'POST'])
+@account_menu.route(f'{app.config["ACCOUNT_DETAILS_URL"]}/cart', methods=['GET', 'POST'])
 def shopping_cart():
     return render_template('security_settings.html')
 

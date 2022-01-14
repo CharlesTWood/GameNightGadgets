@@ -6,12 +6,11 @@ from flask_bcrypt import Bcrypt
 from website.config import Config
 
 from flask_migrate import Migrate
-import configparser
 
 app = Flask(__name__)
 db = SQLAlchemy()
 migrate = Migrate()
-bcrypt = Bcrypt()
+bcrypt = Bcrypt() 
 login_manager = LoginManager()
 login_manager.login_view = 'user.login'
 login_manager.login_message_category = 'info'
@@ -20,16 +19,6 @@ migrate.init_app(app, db)
 bcrypt.init_app(app)
 login_manager.init_app(app)
 app.config.from_object(Config)
-config = configparser.ConfigParser()
-
-try:
-    conf = r'website/configurations/config.ini'
-    print('Reading config file')
-    config.read(conf)
-    print('config read at path: ', conf)
-
-except:
-    print("File error when reading config", conf)
 
 from website.user.routes import user
 from website.account_menu.routes import account_menu

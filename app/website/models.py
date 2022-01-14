@@ -38,16 +38,9 @@ class Product(db.Model):
     pre_order = db.Column(db.Boolean, default=False)
 
 
-class Gadget(db.Model):
-    __tablename__ = 'Gadgets'
-    id = db.Column(db.Integer, primary_key=True, nullable=True)
-    name = db.Column(db.String(20), unique=False, nullable=False)
-    mini_shrines = relationship('Mini_Shrine', backref=backref('gadget'), lazy=True)
-
 class Mini_Shrine(Product):
     __tablename__ = 'Mini_Shrines'
     id = db.Column(db.Integer, primary_key=True, nullable=True)
-    gadget_id = db.Column(db.Integer, db.ForeignKey(Gadget.id), nullable=False)
     mini_name = db.Column(db.String(20), unique=False, nullable=False)
     mini_font = db.Column(db.String(20), unique=False, nullable=False)
     bio_message = db.Column(db.String(100), unique=False, nullable=False)

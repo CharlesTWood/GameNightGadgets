@@ -55,9 +55,7 @@
                 Gadgets
               </a>
               <div class="dropdown-menu" aria-labelledby="gadgetsDropdown">
-                {% for product in gadgets %}
-                  <a class="dropdown-item" href="{{ url_for('main.adventure_kit', product_id='product.id') }}">{product.name}</a>
-                {% endfor %}
+                <a class="dropdown-item" href="{{ url_for('main.mini_shrines') }}">Mini Shrine</a>
               </div>
               
             </li>

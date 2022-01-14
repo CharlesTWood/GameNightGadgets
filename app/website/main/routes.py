@@ -12,11 +12,6 @@ def login_form():
     nav_login_form = Loginform()
     return dict(navbar_login_form=nav_login_form)
 
-@app.context_processor
-def gadgets():
-    gadgets = Adventure_Kit.query.all()
-    return dict(gadgets=gadgets)
-
 @main.route('/home', methods=['GET', 'POST'])
 @main.route("/", methods=['GET', 'POST'])
 def home():
@@ -33,12 +28,16 @@ def home():
 def about():
     return render_template('about.html')
 
-@main.route('/adventure_kits')
+@main.route(app.config['MINI_SHRINE_URL'])
+def mini_shrines():
+    return render_template('mini_shrines.html')
+
+@main.route(app.config['ADVENTURE_KITS_URL'])
 def adventure_kits():
-    products = Adventure_Kit.quert.all()
+    products = Adventure_Kit.query.all()
     return render_template('kits.html', products=products)
 
-@main.route('/adventure_kit/<int:product_id>')
+@main.route(f'{app.config["ADVENTURE_KIT_URL"]}/<int:product_id>')
 def adventure_kit(product_id):
     product = Adventure_Kit.query.get(int(product_id))
     cover = url_for('static', filename='site_images/stoledis.jpeg')
